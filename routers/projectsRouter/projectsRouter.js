@@ -65,11 +65,46 @@ router.get('/:id/tasks', async (req,res) =>{
     }
 })
 
-//add a task for a specific project
+//add a task for a specific project with project id in req.body
+router.post('/tasks', async (req,res) =>{
+    const task = req.body;
+
+    try{
+       if(!task){
+           res.status(400).json({message:"there must be a task to add"})
+       }else if(!task.project_id){
+           res.status(400).json({message:"you must specify a project_id for this task"})
+       }else if(!task.task_desc){
+           res.status(400).json({message:"you must add a task_desc (task description) to this task"})
+       }else{
+           await db('tasks').insert(task);
+           res.status(201).json({message:" new task added successfully", task})
+       }
+
+    }catch(err){
+        res.status(500).json({message:"error in posting task", reason:err.mesage})
+    }
+})
+
 router.post('/:id/tasks', async (req,res) =>{
     const {id} = req.params;
+    const task = req.body;
 
+    try{
+       if(!task){
+           res.status(400).json({message:"there must be a task to add"})
+       }else if(!task.project_id){
+           res.status(400).json({message:"you must specify a project_id for this task"})
+       }else if(!task.task_desc){
+           res.status(400).json({message:"you must add a task_desc (task description) to this task"})
+       }else{
+           await db('tasks as T').join('projects as P', 'P.id', 'T.project_id').insert(task).where({project_id:id});
+           res.status(201).json({message:" new task added successfully", task})
+       }
 
+    }catch(err){
+        res.status(500).json({message:"error in posting task", reason:err.mesage})
+    }
 })
 
 module.exports = router;

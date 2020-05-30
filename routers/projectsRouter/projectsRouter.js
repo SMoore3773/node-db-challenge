@@ -98,7 +98,7 @@ router.post('/:id/tasks', async (req,res) =>{
        }else if(!task.task_desc){
            res.status(400).json({message:"you must add a task_desc (task description) to this task"})
        }else{
-           await db('tasks as T').join('projects as P', 'P.id', 'T.project_id').insert(task).where({project_id:id});
+           await db('tasks as T').join('projects as P', 'P.id', 'T.project_id').insert(task).where({project_id: id});
            res.status(201).json({message:" new task added successfully", task})
        }
 

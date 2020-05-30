@@ -11,5 +11,7 @@ server.use(express.json());
 server.use('/api/resources', resourceRouter);
 server.use('/api/projects', projectsRouter);
 
-server.get('/')
+server.get('/', (req,res)=>{
+    res.status(200).json({message:"api is running"})
+})
 module.exports = server;

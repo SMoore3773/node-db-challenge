@@ -1,9 +1,5 @@
-
 exports.seed = function(knex) {
-  // Deletes ALL existing entries
-  return knex('tasks').del()
-    .then(function () {
-      // Inserts seed entries
+
       return knex('tasks').insert([
         {id: 1, task_desc: 'cloths in basket', task_notes:'',task_complete: true, project_id:1 },
         {id: 2, task_desc: 'cloths in washer', task_notes:'',task_complete: false, project_id:1},
@@ -13,7 +9,6 @@ exports.seed = function(knex) {
         {id: 6, task_desc: 'dry car', task_notes:'',task_complete: true, project_id:2},
         {id: 7, task_desc: 'fill bucket', task_notes:'',task_complete: true, project_id:3 },
         {id: 8, task_desc: 'mop floor', task_notes:'',task_complete: false, project_id:3},
-        {id: 8, task_desc: 'beer time', task_notes:'',task_complete: true, project_id:3}
+        {id: 9, task_desc: 'beer time', task_notes:'',task_complete: true, project_id:3}
       ]);
-    });
-};
+    }
